@@ -60,9 +60,9 @@ class EntangledQGAN():
 
     return self.g_loss,self.d_loss,self.param_history,self.state_overlap_l   
 
-  def create_images(self,generator_model_,real_data,random_data):
+  def create_images(self,real_data,random_data):
     intermediate_output = self.generator_model.get_layer('Swap_Test_Layer').input[1]
-    generator_model_1 = tf.keras.models.Model(inputs=[self.generator_model_.input],outputs=[intermediate_output])
+    generator_model_1 = tf.keras.models.Model(inputs=[self.generator_model.input],outputs=[intermediate_output])
     print("Generating samples")
     samples = generator_model_1.predict([real_data,random_data])
     print("Applying PCA to real data")
