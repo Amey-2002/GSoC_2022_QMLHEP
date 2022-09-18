@@ -24,7 +24,7 @@ class QConv2D_layer(tf.keras.layers.Layer):
         self.main_name = name
         self.qubits = cirq.GridQubit.rect(1, filter_shape[0]*filter_shape[1])
         self.observables = tfq.convert_to_tensor([cirq.Z(self.qubits[-1])])
-        if conv_circuit is not None:
+        if conv_circuit is None:
             self.circuit, self.input_symbols, self.param_symbols = pqc_circuit_for_conv(self.qubits,layers=self.layers)
         else:
             self.circuit, self.input_symbols, self.param_symbols = conv_circuit
