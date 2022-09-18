@@ -14,7 +14,7 @@ class SwapTestLayer(tf.keras.layers.Layer):
 
     def __init__(self,swap_test_symbol_values,real_data_encoding_circuit=None,gen_data_encoding_circuit=None,use_sampled=False,name='Swap_Test_Layer'):
         super(SwapTestLayer,self).__init__(name=name)
-        self.qubits = cirq.GridQubit(8,1)
+        self.qubits = cirq.GridQubit.rect(8,1)
         self.input_symbols = sp.symbols('i_:'+str(swap_test_symbol_values.shape[0]))
         if real_data_encoding_circuit is not None:
             self.real_data_encoding_circuit, self.real_input_symbols = real_data_encoding_circuit
