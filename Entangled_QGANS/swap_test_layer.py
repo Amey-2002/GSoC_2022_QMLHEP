@@ -1,6 +1,7 @@
 import numpy as np 
 import sympy as sp
 import tensorflow as tf
+import cirq
 from  .swap_test_utils import data_encoding_circuit, variational_swap_test_circuit, swap_test_op
 import tensorflow_quantum as tfq
 
@@ -13,14 +14,16 @@ class SwapTestLayer(tf.keras.layers.Layer):
 
     def __init__(self,swap_test_symbol_values,real_data_encoding_circuit=None,gen_data_encoding_circuit=None,use_sampled=False,name='Swap_Test_Layer'):
         super(SwapTestLayer,self).__init__(name=name)
-        if real_data_encoding_circuit is None:
+        self.qubits = cirq.GridQubit(8,1)
+        self.input_symbols = sp.symbols('i_:'+str(swap_test_symbol_values.shape[0]))
+        if real_data_encoding_circuit is not None:
             self.real_data_encoding_circuit, self.real_input_symbols = real_data_encoding_circuit
         else:
-            self.real_data_encoding_circuit, self.real_input_symbols = data_encoding_circuit
-        if gen_data_encoding_circuit is None:
+            self.real_data_encoding_circuit, self.real_input_symbols = data_encoding_circuit(self.qubits[:4],self.input_symbols[:4])
+        if gen_data_encoding_circuit is not None:
             self.gen_data_encoding_circuit, self.gen_input_symbols = gen_data_encoding_circuit
         else:
-            self.gen_data_encoding_circuit, self.gen_input_symbols = data_encoding_circuit      
+            self.gen_data_encoding_circuit, self.gen_input_symbols = data_encoding_circuit(self.qubits[4:],self.input_symbols[4:])      
         # self.data_encoding_circuit,self.real_input_symbols = d_encoding_circuit
         # self.gen_encoding_circuit,self.gen_input_symbols = g_encoding_circuit
         # self.gen_encoding_circuit,self.gen_input_symbols = data_encoding_circuit
