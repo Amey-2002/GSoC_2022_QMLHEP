@@ -13,9 +13,9 @@ class QConv2D_layer(tf.keras.layers.Layer):
     
     """
 
-    def __init__(self,layers,filters,filter_shape,stride,seed,conv_circuit,parameter_sharing=True,padding='same',conv_id='',name='Quantum_Convolutional_Layer_with_padding'):
+    def __init__(self,circuit_layers,filters,filter_shape,stride,seed,conv_circuit=None,parameter_sharing=True,padding='same',conv_id='',name='Quantum_Convolutional_Layer_with_padding'):
         super(QConv2D_layer,self).__init__(name=name+conv_id)
-        self.layers = layers
+        self.layers = circuit_layers
         self.filters = filters
         self.parameter_sharing = parameter_sharing
         self.filter_shape = filter_shape
@@ -24,8 +24,10 @@ class QConv2D_layer(tf.keras.layers.Layer):
         self.main_name = name
         self.qubits = cirq.GridQubit.rect(1, filter_shape[0]*filter_shape[1])
         self.observables = tfq.convert_to_tensor([cirq.Z(self.qubits[-1])])
-        # self.circuit, self.input_symbols, self.param_symbols = conv_circuit(self.qubits,layers=self.layers)
-        self.circuit, self.input_symbols, self.param_symbols = pqc_circuit_for_conv(self.qubits,layers=self.layers)
+        if conv_circuit is not None:
+            self.circuit, self.input_symbols, self.param_symbols = pqc_circuit_for_conv(self.qubits,layers=self.layers)
+        else:
+            self.circuit, self.input_symbols, self.param_symbols = conv_circuit(self.qubits,layers=self.layers)
         self.model_circuit = tfq.convert_to_tensor([self.circuit])
         self.all_symbols = np.concatenate((self.input_symbols,self.param_symbols),axis=0)
         self.initializer = tf.keras.initializers.RandomUniform(0, 2 * np.pi, seed=seed)

@@ -11,12 +11,19 @@ class SwapTestLayer(tf.keras.layers.Layer):
     Layer outputs the fidelity between two states created using two data entries 
     """
 
-    def __init__(self,d_encoding_circuit,g_encoding_circuit,swap_test_circuit,swap_test_symbol_values,operators,use_sampled=False,name='Swap_Test_Layer'):
+    def __init__(self,swap_test_symbol_values,real_data_encoding_circuit=None,gen_data_encoding_circuit=None,use_sampled=False,name='Swap_Test_Layer'):
         super(SwapTestLayer,self).__init__(name=name)
-        self.data_encoding_circuit, self.real_input_symbols = data_encoding_circuit
+        if real_data_encoding_circuit is not None:
+            self.real_data_encoding_circuit, self.real_input_symbols = real_data_encoding_circuit
+        else:
+            self.real_data_encoding_circuit, self.real_input_symbols = data_encoding_circuit
+        if gen_data_encoding_circuit is not None:
+            self.gen_data_encoding_circuit, self.gen_input_symbols = gen_data_encoding_circuit
+        else:
+            self.gen_data_encoding_circuit, self.gen_input_symbols = data_encoding_circuit      
         # self.data_encoding_circuit,self.real_input_symbols = d_encoding_circuit
         # self.gen_encoding_circuit,self.gen_input_symbols = g_encoding_circuit
-        self.gen_encoding_circuit,self.gen_input_symbols = data_encoding_circuit
+        # self.gen_encoding_circuit,self.gen_input_symbols = data_encoding_circuit
         self.fidelity_circuit,self.param_symbols = variational_swap_test_circuit
         self.param_symbols_values = swap_test_symbol_values
         self.operators = swap_test_op
@@ -35,8 +42,8 @@ class SwapTestLayer(tf.keras.layers.Layer):
         self.parameters = tf.Variable(self.param_symbols_values,
                                   trainable=True,
                                   dtype = tf.dtypes.float32)
-        self.full_circuit = tfq.layers.AddCircuit()(self.data_encoding_circuit,append=self.fidelity_circuit)
-        self.full_circuit = tfq.layers.AddCircuit()(self.gen_encoding_circuit,append=self.full_circuit)
+        self.full_circuit = tfq.layers.AddCircuit()(self.real_data_encoding_circuit,append=self.fidelity_circuit)
+        self.full_circuit = tfq.layers.AddCircuit()(self.gen_data_encoding_circuit,append=self.full_circuit)
         self.symbol_names = tfq.util.get_circuit_symbols(tfq.from_tensor(self.full_circuit)[0])
     
     def call(self,real_data_inputs,generated_data_inputs):
