@@ -15,13 +15,13 @@ class EntangledQGAN():
   
   """
 
-  def __init__(self, filters,filter_size,stride,layers,
-               generator_model, discriminator_model, fidelity_test_params=None,
+  def __init__(self, #filters,filter_size,stride,layers,
+               generator_model, discriminator_model, #fidelity_test_params=None,
                use_sampled=False,backend=None,name='QGAN_Model'):
-    self.layers = layers
-    self.filters = filters
-    self.filter_size = filter_size
-    self.stride = stride
+    # self.layers = layers
+    # self.filters = filters
+    # self.filter_size = filter_size
+    # self.stride = stride
     self.d_loss = []
     self.g_loss = []
     self.param_history = []
