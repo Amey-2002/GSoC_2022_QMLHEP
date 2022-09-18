@@ -5,7 +5,7 @@ import tensorflow_quantum as tfq
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-from swap_test_utils import quantum_state_overlap
+from .swap_test_utils import quantum_state_overlap
 
 class EntangledQGAN():
   def __init__(self, filters,filter_size,stride,layers,

@@ -1,7 +1,7 @@
 import numpy as np 
 import sympy as sp
 import tensorflow as tf
-from  swap_test_utils import data_encoding_circuit, variational_swap_test_circuit, swap_test_op
+from  .swap_test_utils import data_encoding_circuit, variational_swap_test_circuit, swap_test_op
 import tensorflow_quantum as tfq
 
 
