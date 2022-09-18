@@ -27,7 +27,7 @@ class QConv2D_layer(tf.keras.layers.Layer):
         if conv_circuit is not None:
             self.circuit, self.input_symbols, self.param_symbols = pqc_circuit_for_conv(self.qubits,layers=self.layers)
         else:
-            self.circuit, self.input_symbols, self.param_symbols = conv_circuit(self.qubits,layers=self.layers)
+            self.circuit, self.input_symbols, self.param_symbols = conv_circuit
         self.model_circuit = tfq.convert_to_tensor([self.circuit])
         self.all_symbols = np.concatenate((self.input_symbols,self.param_symbols),axis=0)
         self.initializer = tf.keras.initializers.RandomUniform(0, 2 * np.pi, seed=seed)
