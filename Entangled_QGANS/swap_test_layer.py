@@ -50,7 +50,9 @@ class SwapTestLayer(tf.keras.layers.Layer):
         self.full_circuit = tfq.layers.AddCircuit()(self.gen_data_encoding_circuit,append=self.full_circuit)
         self.symbol_names = tfq.util.get_circuit_symbols(tfq.from_tensor(self.full_circuit)[0])
     
-    def call(self,real_data_inputs,generated_data_inputs):
+    def call(self, inputs):
+        real_data_inputs = inputs[0]
+        generated_data_inputs = inputs[1]
         batch_size = tf.shape(real_data_inputs)[0]
         full_circuit_batch = tf.repeat(self.full_circuit,repeats=batch_size,name=self.main_name+'-tiled_fidelity_circuits') 
         tiled_parameters = tf.tile(tf.expand_dims(self.parameters,0),multiples=[batch_size,1])
