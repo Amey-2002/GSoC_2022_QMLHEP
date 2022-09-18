@@ -55,7 +55,7 @@ class EntangledQGAN():
       print(f'Step = {episode}:')
       print(f'discriminator_loss={self.d_loss[-1]}')
       print(f'generator_loss={self.g_loss[-1]}')
-      print(f'overlap={self.state_overlap}')
+      print(f'overlap={state_overlap}')
       print('-'*50) 
 
     return self.g_loss,self.d_loss,self.param_history,self.state_overlap_l   
