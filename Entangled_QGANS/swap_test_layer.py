@@ -13,11 +13,11 @@ class SwapTestLayer(tf.keras.layers.Layer):
 
     def __init__(self,swap_test_symbol_values,real_data_encoding_circuit=None,gen_data_encoding_circuit=None,use_sampled=False,name='Swap_Test_Layer'):
         super(SwapTestLayer,self).__init__(name=name)
-        if real_data_encoding_circuit is not None:
+        if real_data_encoding_circuit is None:
             self.real_data_encoding_circuit, self.real_input_symbols = real_data_encoding_circuit
         else:
             self.real_data_encoding_circuit, self.real_input_symbols = data_encoding_circuit
-        if gen_data_encoding_circuit is not None:
+        if gen_data_encoding_circuit is None:
             self.gen_data_encoding_circuit, self.gen_input_symbols = gen_data_encoding_circuit
         else:
             self.gen_data_encoding_circuit, self.gen_input_symbols = data_encoding_circuit      
