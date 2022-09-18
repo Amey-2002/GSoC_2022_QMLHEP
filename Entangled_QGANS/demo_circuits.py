@@ -15,6 +15,17 @@ def two_qubit_unitary(qubits):
   return cx_ops
 
 def pqc_circuit_for_conv(qubits,layers):
+  """
+  Arguments:
+    qubits(cirq.GridQubit)
+    layers(number of layers)
+
+  Returns:
+    cirq.Circuit(parameterised circuit)
+    sympy symbols for gates having input data
+    sympy symbols for gates having parameters
+
+  """
   circuit = cirq.Circuit()
   num_qubits = len(qubits)
   input_symbols = sp.symbols('x_:'+str(num_qubits))

@@ -71,6 +71,16 @@ def variational_swap_test_circuit(qubits_a,qubits_b,rotations):
     return circuit,np.ndarray.flatten(rotations)
 
 def quantum_state_overlap(generator_model_,real_data,random_data):
+    """
+    Arguments: 
+      generator_model(generator model)
+      real_data(original data)
+      random_data(fake data/noise)
+
+    Returns: 
+      overlap between two states created using two data entries
+      
+    """
     intermediate_output_real = generator_model_.get_layer('Swap_Test_Layer').input[0]
     intermediate_output_gen = generator_model_.get_layer('Swap_Test_Layer').input[1]
     generator_model_1 = tf.keras.models.Model(inputs=[generator_model_.input],outputs=[intermediate_output_real,intermediate_output_gen])
@@ -91,3 +101,4 @@ def quantum_state_overlap(generator_model_,real_data,random_data):
     gen_state = gen_state.to_tensor(default_value=0).numpy()
     state_overlap = np.dot(real_state[0],gen_state[0])
     return state_overlap
+

@@ -42,8 +42,13 @@ class FID:
     def calculate(self,images_1,images_2):
         """
         calculates the FID score 
+        
+        Arguments:
+          -original set of images
+          -generated set of images
 
-        returns: FID between two sets of images
+        Returns: 
+          FID between two sets of images
         
         """
         new_images_1 = self.scale_images(images_2,(299,299,3))

@@ -8,6 +8,13 @@ import matplotlib.gridspec as gridspec
 from .swap_test_utils import quantum_state_overlap
 
 class EntangledQGAN():
+
+  """
+  Model for Entangled Quantum Generative Adversarial Networks
+  Inspiration: https://arxiv.org/abs/2105.00080
+  
+  """
+
   def __init__(self, filters,filter_size,stride,layers,
                generator_model, discriminator_model, fidelity_test_params=None,
                use_sampled=False,backend=None,name='QGAN_Model'):

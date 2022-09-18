@@ -35,8 +35,9 @@ def inputs_preprocess(inputs,filter_shape,stride,input_rows,input_cols,input_cha
 def get_output_shape(input_shape,filter_shape,stride,padding='same'):
 
     """
-    returns: output shape for given input shape  
-
+    returns:
+      output shape for given input shape  
+      
     """
 
     if (input_shape[0] % stride[0] == 0):
@@ -60,8 +61,16 @@ def get_output_shape(input_shape,filter_shape,stride,padding='same'):
     return tf.TensorShape([int(new_rows), int(new_cols)])
 
 def crop_images(data,dimensions):
+    """
+    Arguments: 
+       data(ndarray) - input images/data)
+       dimensions(tuple) - required dimension of images 
+
+    Returns: 
+       cropped images/data
+    """
     img_size = dimensions[0]
     max_val_pix = np.argmax(np.mean(data[:, :, :], axis=0))
-    center = [int(max_val_pix/25), max_val_pix%25]
-    data = data[:1500, (center[0]-int(img_size/2)):(center[0]+int(img_size/2)), (center[1]-int(img_size/2)):(center[1]+int(img_size/2))]
+    center = [int(max_val_pix/data.shape[1]), max_val_pix%data.shape[1]]
+    data = data[:, (center[0]-int(img_size/2)):(center[0]+int(img_size/2)), (center[1]-int(img_size/2)):(center[1]+int(img_size/2))]
     return data
