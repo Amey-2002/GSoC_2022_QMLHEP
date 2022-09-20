@@ -79,4 +79,4 @@ class EntangledQGAN():
       ax = plt.subplot(gs[i//4, 4 + i%4])
       plt.imshow(X_pca_inv_transform[i])
     
-    return samples
+    return X_pca_inv_transform
