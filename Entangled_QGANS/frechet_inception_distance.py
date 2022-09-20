@@ -35,7 +35,7 @@ class FID:
         images_list = []
         for image in images:
             new_image = resize(image,size,0)
-        images_list.append(new_image)
+            images_list.append(new_image)
 
         return asarray(images_list)
     
@@ -51,15 +51,15 @@ class FID:
           FID between two sets of images
         
         """
-        new_images_1 = self.scale_images(images_1,(299,299,3))
-        new_images_2 = self.scale_images(images_2,(299,299,3))
-        if(new_images_1.shape != new_images_2.shape):
+        images_1 = self.scale_images(images_1,(299,299,3))
+        images_2 = self.scale_images(images_2,(299,299,3))
+        if(images_1.shape != images_2.shape):
             raise Exception('Both set of images must have equal number of images. You passed image data with input shapes {new_images_1.shape} and {new_images_2.shape}')
-        new_images_1 = preprocess_input(new_images_1)
-        new_images_2 = preprocess_input(new_images_2)
+        images_1 = preprocess_input(images_1)
+        images_2 = preprocess_input(images_2)
   
-        act1 = self.model.predict(new_images_1)
-        act2 = self.model.predict(new_images_2)
+        act1 = self.model.predict(images_1)
+        act2 = self.model.predict(images_2)
         mu1, sigma1 = act1.mean(axis=0), cov(act1, rowvar=False)
         mu2, sigma2 = act2.mean(axis=0), cov(act2, rowvar=False)
         ssdiff = np.sum((mu1-mu2)**2)
