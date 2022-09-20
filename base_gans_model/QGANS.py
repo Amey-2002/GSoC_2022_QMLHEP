@@ -10,9 +10,9 @@ class QGAN():
     self.g_opt = gen_optimizer
     self.loss = tf.keras.losses.BinaryCrossentropy(from_logits=True)
     if generator_loss=='negative_binary_cross_entropy':
-        self.gen_model_loss_function = self.generator_loss_1
+        self.generator_loss = self.generator_loss_1
     if generator_loss=='inverted_label':
-        self.gen_model_loss_function = self.generator_loss_2
+        self.generator_loss = self.generator_loss_2
     self.gen_loss_ = []
     self.disc_loss_ = []
     self.epochs_ = []
