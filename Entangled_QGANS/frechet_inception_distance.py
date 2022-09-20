@@ -53,7 +53,7 @@ class FID:
         """
         new_images_1 = self.scale_images(images_2,(299,299,3))
         new_images_2 = self.scale_images(images_2,(299,299,3))
-        if(new_images_1.shape != new_images_2):
+        if(new_images_1.shape != new_images_2.shape):
             raise Exception('Both set of images must have equal number of images. You passed image data with input shapes {new_images_1.shape} and {new_images_2.shape}')
         images_1 = preprocess_input(images_1)
         images_2 = preprocess_input(images_2)
