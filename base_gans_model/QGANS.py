@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
-
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 
 class QGAN():
   def __init__(self,discriminator,generator,disc_optimizer,gen_optimizer,generator_loss='negative_binary_cross_entropy'):
@@ -132,17 +133,25 @@ class QGAN():
       d_metric.reset_state()
     return self.gen_loss_,self.disc_loss_,self.epochs_
 
-  def generate_samples(self,batch_size, shape=None):
+  def create_images(self,batch_size, shape=None):
     """ Generates sample using random inputs
         
         Arguments:
             batch_size (int): Number of samples to generate.
             shape (Optional) (tuple of int): Reshape the output to the given shape.
         """
+    print("Generating random data...")    
     z_batch_shape = (batch_size,) + self.generator_model.input_shape[1:]
     z = tf.random.normal(z_batch_shape)
     print(z.shape[0])
+    print("Fetching images from generator...")
     samples = self.generator_model(z,training = False)
+    print("Generated Images:")
+    fig = plt.figure(figsize=(26,18))
+    gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
+    for i in range(8):
+      ax = plt.subplot(gs[i//4, 4 + i%4])
+      plt.imshow(samples[i])
 
     return samples
 
