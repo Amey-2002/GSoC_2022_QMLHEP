@@ -154,6 +154,20 @@ class QGAN():
       plt.imshow(samples[i])
 
     return samples
-
+  
+  def plot_loss(gen_loss,disc_loss,epochs):
+    fig = plt.figure(figsize=(16,9))
+    gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
+    epoch = epochs[-1]
+    # plot loss curve
+    ax_loss = plt.subplot(gs[:,:4])
+    ax_loss.set_xlim(0, 1.1*epoch)
+    ax_loss.plot(epochs, gen_loss, label="Generator")
+    ax_loss.plot(epochs, disc_loss, label="Discriminator")
+    ax_loss.set_xlabel('Epoch', fontsize=20)
+    ax_loss.set_ylabel('Loss', fontsize=20)
+    ax_loss.grid(True)
+    ax_loss.legend(fontsize=15)
+    
   def predict(self, x):
     return self.discriminator_model(x, training=False)
