@@ -103,8 +103,8 @@ class QConv2D_layer(tf.keras.layers.Layer):
             # change to (filters, depth, batchsize, rows, cols, weight_symbols)
             tiled_up_weights_ = tf.transpose(tiled_up_weights__, [1, 2, 0, 3, 4, 5])
             # reshape to (circuit_size, weight_symbols)
-            tiled_up_weights = tf.reshape(tiled_up_weights_, (circuit_size, tf.shape(tiled_up_weights_)[-1]))
-            tiled_up_parameters = tf.concat([tiled_up_inputs, tiled_up_weights], 1)
+        tiled_up_weights = tf.reshape(tiled_up_weights_, (circuit_size, tf.shape(tiled_up_weights_)[-1]))
+        tiled_up_parameters = tf.concat([tiled_up_inputs, tiled_up_weights], 1)
         
 
         # tiled_up_data_circuit = tf.tile(self._data_circuit, [circuit_size])
