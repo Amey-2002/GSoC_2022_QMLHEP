@@ -155,7 +155,7 @@ class QGAN():
 
     return samples
   
-  def plot_loss(gen_loss,disc_loss,epochs):
+  def plot_loss(self,gen_loss,disc_loss,epochs):
     fig = plt.figure(figsize=(16,9))
     gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
     epoch = epochs[-1]
@@ -168,6 +168,6 @@ class QGAN():
     ax_loss.set_ylabel('Loss', fontsize=20)
     ax_loss.grid(True)
     ax_loss.legend(fontsize=15)
-    
+
   def predict(self, x):
     return self.discriminator_model(x, training=False)
