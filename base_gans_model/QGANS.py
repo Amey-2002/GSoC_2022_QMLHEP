@@ -143,7 +143,6 @@ class QGAN():
     print("Generating random data...")    
     z_batch_shape = (batch_size,) + self.generator_model.input_shape[1:]
     z = tf.random.normal(z_batch_shape)
-    print(z.shape[0])
     print("Fetching images from generator...")
     samples = self.generator_model(z,training = False)
     print("Generated Images:")
@@ -151,7 +150,7 @@ class QGAN():
     gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
     for i in range(8):
       ax = plt.subplot(gs[i//4, 4 + i%4])
-      plt.imshow(samples[i])
+      plt.imshow(samples[i,:,:,0])
 
     return samples
   
