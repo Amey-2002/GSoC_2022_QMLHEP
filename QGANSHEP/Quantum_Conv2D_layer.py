@@ -3,8 +3,8 @@ import sympy as sp
 import cirq
 import tensorflow as tf
 import tensorflow_quantum as tfq
-from Entangled_QGANS.preprocess_utils import inputs_preprocess, get_output_shape
-from Entangled_QGANS.demo_circuits import pqc_circuit_for_conv
+from preprocess_utils import inputs_preprocess, get_output_shape
+from demo_circuits import pqc_circuit_for_conv
 
 class QConv2D_layer(tf.keras.layers.Layer):
 
