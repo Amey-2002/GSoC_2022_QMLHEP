@@ -41,6 +41,12 @@ Install the QGANSHEP package
 ```shell
 python setup.py
 ```
+
+_Note: If the code does not run or gives errors, try using google colab and using the following versions for tf and tfq.
+<br>
+tensorflow==2.7.0
+<br>
+tensorflow-quantum==0.6.0 --use-deprecated=legacy-resolver_
 ***
 ## Project
 The proposed project introduces an novel approach for Quantum Generative Adversarial Networks, a quantum machine learning technique to solve high energy physics problems like regeneration and classification of large data. This project aims to demonstrate quantum machine learning's potential in solving critical high energy physics problems that seem to be intractable using classical techniques.
