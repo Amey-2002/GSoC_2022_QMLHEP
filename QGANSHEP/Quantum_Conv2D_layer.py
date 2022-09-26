@@ -57,8 +57,6 @@ class QConv2D_layer(tf.keras.layers.Layer):
                         name='kernel',
                         shape=self.kernel_shape,
                         initializer=self.initializer,
-                        # regularizer=self.regularizer,
-                        # constraint=self.constraint,
                         trainable=True,
                         dtype=self.dtype)
         self.inputs_preprocess_ = inputs_preprocess

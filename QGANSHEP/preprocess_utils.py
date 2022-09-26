@@ -5,7 +5,7 @@ import tensorflow as tf
 def inputs_preprocess(inputs,filter_shape,stride,input_rows,input_cols,input_channels,padding="same"):
 
     """
-    processes the input images and returns patches from input
+    Processes the input images and returns patches from input
     images according to filter size and stride
 
     """
@@ -35,7 +35,7 @@ def inputs_preprocess(inputs,filter_shape,stride,input_rows,input_cols,input_cha
 def get_output_shape(input_shape,filter_shape,stride,padding='same'):
 
     """
-    returns:
+    Returns:
       output shape for given input shape  
       
     """

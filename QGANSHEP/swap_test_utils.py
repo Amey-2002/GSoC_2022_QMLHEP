@@ -72,6 +72,8 @@ def variational_swap_test_circuit(qubits_a,qubits_b,rotations):
 
 def quantum_state_overlap(generator_model_,real_data,random_data):
     """
+    Function for calculating how much two states overlap each other using dot product
+
     Arguments: 
       generator_model(generator model)
       real_data(original data)

@@ -4,6 +4,13 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
 class QGAN():
+
+  """
+  Class for creating the GANS model
+  reference: https://gitlab.cern.ch/clcheng/quple/-/blob/master/quple/models/generative/qgan.py
+
+  """
+
   def __init__(self,discriminator,generator,disc_optimizer,gen_optimizer,generator_loss='negative_binary_cross_entropy'):
     self.generator_model = generator
     self.discriminator_model = discriminator
@@ -46,8 +53,11 @@ class QGAN():
   
   @tf.function
   def train_step_1v1(self,x_real,batch_size):
-    """Training step for one epoch with 1 generator step and 1 discriminator step
-        """
+    """
+    Training step for one epoch with 1 generator step and 1 discriminator step
+
+    """
+
     fake_data_shape = (batch_size,) + self.generator_model.input_shape[1:]
     z = tf.random.normal(shape=fake_data_shape)
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
@@ -64,6 +74,11 @@ class QGAN():
 
   @tf.function
   def train_step_nv1(self,x_real,n_disc,batch_size):
+    """
+    Training step for one epoch with n generator steps and 1 discriminator step
+
+    """
+
     for i in range(n_disc):
       x_real_batch = tf.gather(x_real,i)
       d_loss = self.discriminator_step(x_real_batch,batch_size)
@@ -72,6 +87,11 @@ class QGAN():
 
   @tf.function
   def train_step_1vn(self,x_real,n_gen,batch_size):
+    """
+    Training step for one epoch with 1 generator step and n discriminator steps
+
+    """
+
     for i in range(n_gen):
       g_loss = self.generator_step(batch_size)
     d_loss = self.discriminator_step(x_real,batch_size)
@@ -103,6 +123,17 @@ class QGAN():
     return loss
   
   def train_qgans(self,x,epochs,batch_size,seed=1024,n_disc=1,n_gen=1):
+    """
+    Function for training the model
+
+    Arguments: x(real data), epochs(total train steps), batch_size, seed(random seed),
+               n_disc = number of discriminator steps in one train step
+               n_gen = number of generator steps in one train step
+
+    Returns: gen_loss_(generator loss), disc_loss_(discriminator loss), epochs_(list with range=number of train steps)
+
+    """
+
     input_shape = x.shape[1:]
     self.train_preprocess(seed)
     data = self.prepare_dataset(data=x,batch_size=batch_size*n_disc,seed=seed)
@@ -134,12 +165,17 @@ class QGAN():
     return self.gen_loss_,self.disc_loss_,self.epochs_
 
   def create_images(self,batch_size, shape=None):
-    """ Generates sample using random inputs
+    """ 
+    Generates sample using random inputs
         
-        Arguments:
+    Arguments:
             batch_size (int): Number of samples to generate.
             shape (Optional) (tuple of int): Reshape the output to the given shape.
-        """
+    
+    Returns: samples(images similar to real images)
+
+    """
+
     print("Generating random data...")    
     z_batch_shape = (batch_size,) + self.generator_model.input_shape[1:]
     z = tf.random.normal(z_batch_shape)
@@ -155,6 +191,12 @@ class QGAN():
     return samples
   
   def plot_loss(self,gen_loss,disc_loss,epochs):
+    """
+    Function for plotting loss of discriminator and generator
+    
+    Arguments: gen_loss(generator loss), disc_loss(discriminator loss), epochs(list of range=number of train steps)
+
+    """
     fig = plt.figure(figsize=(16,9))
     gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
     epoch = epochs[-1]
@@ -169,4 +211,8 @@ class QGAN():
     ax_loss.legend(fontsize=15)
 
   def predict(self, x):
+    """
+    Function for predicting the truth value of samples, i.e. classifying into real and fake classes
+
+    """
     return self.discriminator_model(x, training=False)

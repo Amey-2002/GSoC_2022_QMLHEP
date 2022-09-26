@@ -15,13 +15,9 @@ class EntangledQGAN():
   
   """
 
-  def __init__(self, #filters,filter_size,stride,layers,
-               generator_model, discriminator_model, #fidelity_test_params=None,
+  def __init__(self, generator_model, discriminator_model,
                use_sampled=False,backend=None,name='QGAN_Model'):
-    # self.layers = layers
-    # self.filters = filters
-    # self.filter_size = filter_size
-    # self.stride = stride
+    
     self.d_loss = []
     self.g_loss = []
     self.param_history = []
@@ -31,6 +27,18 @@ class EntangledQGAN():
     self.use_sampled = use_sampled
   
   def train(self,real_data_inputs, generator_data_inputs, batch_size, g_epochs, d_epochs, n_episodes):
+    """
+    Function for training the model
+    
+    Arguments: real_data_inputs, generator_data_inputs(random_data(size=real data)), batch_size, 
+                g_epochs = number of generator steps in one train step
+                d_epochs = number of discriminator steps in one train step
+    
+    Returns: g_loss(generator loss), d_loss(discriminator loss), 
+             param_history(values of swap test parameters for each step(will remain same if set to be not trainable))
+             state_overlap_l(overlap of two states(real and fake) at each step)
+
+    """
     real_data = tf.keras.Input(shape=(real_data_inputs.shape[1], real_data_inputs.shape[2], ),dtype=tf.dtypes.float32,name='Input_layer_real')
     gen_data = tf.keras.Input(shape=(generator_data_inputs.shape[1], generator_data_inputs.shape[2], ),dtype=tf.dtypes.float32,name='Input_layer_generated')
     for episode in range(n_episodes):
@@ -59,8 +67,39 @@ class EntangledQGAN():
       print('-'*50) 
 
     return self.g_loss,self.d_loss,self.param_history,self.state_overlap_l   
+  
+  def plot_loss(gen_loss,disc_loss,epochs):
+    """
+    Function for plotting loss of discriminator and generator
+    
+    Arguments: gen_loss(generator loss), disc_loss(discriminator loss), epochs(list of range=number of train steps)
+
+    """
+    
+    fig = plt.figure(figsize=(16,9))
+    gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
+    epochs = [i for i in range(epochs)]
+    epoch = epochs[-1]
+    # plot loss curve
+    ax_loss = plt.subplot(gs[:,:4])
+    ax_loss.set_xlim(0, 1.1*epoch)
+    ax_loss.plot(epochs, np.mean(gen_loss,axis=1), label="Generator")
+    ax_loss.plot(epochs, np.mean(disc_loss,axis=1), label="Discriminator")
+    ax_loss.set_xlabel('Epoch', fontsize=20)
+    ax_loss.set_ylabel('Loss', fontsize=20)
+    ax_loss.grid(True)
+    ax_loss.legend(fontsize=15)
 
   def create_images(self,real_data,random_data):
+    """
+    Function for generating images in inference mode
+
+    Arguments: real_data(real data)
+              random_data(random data)
+
+    Returns: X_pca_inv_transform(final images similar to real images)
+
+    """
     intermediate_output = self.generator_model.get_layer('Swap_Test_Layer').input[1]
     generator_model_1 = tf.keras.models.Model(inputs=[self.generator_model.input],outputs=[intermediate_output])
     print("Generating samples")

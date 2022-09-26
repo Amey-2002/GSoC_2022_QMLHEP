@@ -3,22 +3,15 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.colors import LogNorm
 
-def plot_loss(gen_loss,disc_loss,epochs):
-  fig = plt.figure(figsize=(16,9))
-  gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
-  epochs = [i for i in range(epochs)]
-  epoch = epochs[-1]
-  # plot loss curve
-  ax_loss = plt.subplot(gs[:,:4])
-  ax_loss.set_xlim(0, 1.1*epoch)
-  ax_loss.plot(epochs, np.mean(gen_loss,axis=1), label="Generator")
-  ax_loss.plot(epochs, np.mean(disc_loss,axis=1), label="Discriminator")
-  ax_loss.set_xlabel('Epoch', fontsize=20)
-  ax_loss.set_ylabel('Loss', fontsize=20)
-  ax_loss.grid(True)
-  ax_loss.legend(fontsize=15)
 
 def plot_state_overlap(overlap,epochs):
+  """
+  Function for plotting the state overlap between two states
+
+  Arguments: overlap(list of overlap values at each train step)
+             epochs(list with range=number of train steps)
+  
+  """
   fig = plt.figure(figsize=(16,9))
   gs = gridspec.GridSpec(ncols=8, nrows=8, figure=fig)
   epochs = [i for i in range(epochs)]

@@ -25,9 +25,6 @@ class SwapTestLayer(tf.keras.layers.Layer):
             self.gen_data_encoding_circuit, self.gen_input_symbols = gen_data_encoding_circuit
         else:
             self.gen_data_encoding_circuit, self.gen_input_symbols = data_encoding_circuit(self.qubits[4:],self.input_symbols[4:])      
-        # self.data_encoding_circuit,self.real_input_symbols = d_encoding_circuit
-        # self.gen_encoding_circuit,self.gen_input_symbols = g_encoding_circuit
-        # self.gen_encoding_circuit,self.gen_input_symbols = data_encoding_circuit
         self.fidelity_circuit,self.param_symbols = variational_swap_test_circuit(self.qubits[:4],self.qubits[4:],self.swap_test_symbols)
         self.param_symbols_values = swap_test_symbol_values
         self.operators = swap_test_op(self.qubits[:4],self.qubits[4:])
