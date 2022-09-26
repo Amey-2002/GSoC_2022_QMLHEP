@@ -2,7 +2,7 @@
 
 <p>
 <!-- [<img src="https://raw.githubusercontent.com/Amey-2002/GSoC_2022_QMLHEP/main/assets/gsoc%40ml4sci.jpeg" title="Electron" />](https://ml4sci.org/) -->
-<a href="https://ml4sci.org/" target="_blank"><img alt="gsoc@ml4sci" height="300px" width="1000" src="https://raw.githubusercontent.com/eraraya-ricardo/qcnn-hep/main/assets/gsoc%40ml4sci.jpeg" /></a>
+<a href="https://ml4sci.org/" target="_blank"><img alt="gsoc@ml4sci" height="350px" width="1000" src="https://raw.githubusercontent.com/Amey-2002/GSoC_2022_QMLHEP/main/assets/gsoc%40ml4sci.jpeg" /></a>
 </p>
 
 This project is an official submission to the [Google Summer of Code 2022](https://summerofcode.withgoogle.com/) program carried out under the supervision of mentors from the ML4SCI organization.<br>
@@ -53,6 +53,7 @@ tensorflow==2.7.0
 <br>
 tensorflow-quantum==0.6.0 --use-deprecated=legacy-resolver_
 ***
+
 ## Project
 The proposed project introduces an novel approach for Quantum Generative Adversarial Networks, a quantum machine learning technique to solve high energy physics problems like regeneration and classification of large data. This project aims to demonstrate quantum machine learning's potential in solving critical high energy physics problems that seem to be intractable using classical techniques.
 
@@ -108,6 +109,9 @@ This is a new approach inspired by this [paper](https://arxiv.org/abs/2105.00080
 <br>
 
 _Note: There is also an implementation of the fully quantum model using pennylane library, however, due to some technical issue it could not be completed(Otherwise, implementation of a QGAN in pennylane and tensorflow was also in plans to be integrated into the package). Please do check it once if the issue can be resolved and if you can play around with it._
+
+## Tutorials/Docs
+The [demo notebooks](https://github.com/Amey-2002/GSoC_2022_QMLHEP/tree/main/demo%20notebooks) serve as tutorials as well as documentation. It is also possible to dive right into the actual code as all the necessary docstrings also help to understand the code.
 
 ## Results
 
