@@ -1,7 +1,8 @@
 # Quantum Generative Adversarial Neural Networks for High Energy Physics Analysis at the LHC
 
 <p>
-<img src="https://raw.githubusercontent.com/Amey-2002/GSoC_2022_QMLHEP/main/assets/gsoc%40ml4sci.jpeg" title="Electron" /> 
+<!-- [<img src="https://raw.githubusercontent.com/Amey-2002/GSoC_2022_QMLHEP/main/assets/gsoc%40ml4sci.jpeg" title="Electron" />](https://ml4sci.org/) -->
+<a href="https://ml4sci.org/" target="_blank"><img alt="gsoc@ml4sci" height="300px" width="1000" src="https://raw.githubusercontent.com/eraraya-ricardo/qcnn-hep/main/assets/gsoc%40ml4sci.jpeg" /></a>
 </p>
 
 This project is an official submission to the [Google Summer of Code 2022](https://summerofcode.withgoogle.com/) program carried out under the supervision of mentors from the ML4SCI organization.<br>
@@ -24,13 +25,17 @@ The official project webpage can be found [here](https://summerofcode.withgoogle
 
 It is preferable to set up a virtual environment so that you do not face any package version conflicts.
 ```shell
-conda create --name tfq
-conda activate tfq
+python -m venv env_name
+cd env_name
+.\Scripts\activate
 ```
 
 Clone the repository and navigate to the required folder.
 ```shell
 git clone https://github.com/Amey-2002/GSoC_2022_QMLHEP
+```
+Naviagate to the folder
+```shell
 cd GSoC_2022_QMLHEP
 ```
 Install the necessary libraries and frameworks.
@@ -39,7 +44,7 @@ pip install -r requirements.txt
 ```
 Install the QGANSHEP package
 ```shell
-python setup.py
+setup.py install
 ```
 
 _Note: If the code does not run or gives errors, try using google colab and using the following versions for tf and tfq.
@@ -107,3 +112,5 @@ _Note: There is also an implementation of the fully quantum model using pennylan
 ## Results
 
 The training for generative adversarial networks is a difficult task to accomplish even for the classical paradigm, the addition of quantum computation makes it more complicated to analyse and interpret the results. Also, because these networks are actually quantum circuits getting simulated in the backend, it takes a lot of time and computational overhead when deep quantum circuits are employed as well as when the network itself is large enough in size as the number of simulations increase. In this project, due to limited computational resources, networks could be trained using only upto a certain number of parameters and depth of quantum circuits as well as for limited number of samples and small number of epochs. It is a request to anyone who inspects this project must definitely try the models with high values of parameters and samples if enough computational resources are available.
+<br>
+ A few results for each model can be found in the respective folders with folder name as the model name.

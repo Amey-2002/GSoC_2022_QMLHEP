@@ -39,8 +39,7 @@ class EntangledQGAN():
              state_overlap_l(overlap of two states(real and fake) at each step)
 
     """
-    real_data = tf.keras.Input(shape=(real_data_inputs.shape[1], real_data_inputs.shape[2], ),dtype=tf.dtypes.float32,name='Input_layer_real')
-    gen_data = tf.keras.Input(shape=(generator_data_inputs.shape[1], generator_data_inputs.shape[2], ),dtype=tf.dtypes.float32,name='Input_layer_generated')
+    
     for episode in range(n_episodes):
       self.param_history.append(self.discriminator_model.get_layer('Swap_Test_Layer').get_weights())
       d_history = self.discriminator_model.fit(x=[real_data_inputs,generator_data_inputs],
