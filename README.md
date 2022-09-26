@@ -35,7 +35,7 @@ cd GSoC_2022_QMLHEP
 ```
 Install the necessary libraries and frameworks.
 ```shell
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 Install the QGANSHEP package
 ```shell

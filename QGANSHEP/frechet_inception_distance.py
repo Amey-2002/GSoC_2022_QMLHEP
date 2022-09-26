@@ -8,7 +8,7 @@ from numpy import iscomplexobj
 from scipy.linalg import sqrtm
 
 class FID:
-    def __init__(self) -> None:
+    def __init__(self):
         """
         initiates the Inception model for calculating Frechet Inception Distance between two sets of images 
         

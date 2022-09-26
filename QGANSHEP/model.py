@@ -60,7 +60,7 @@ class EntangledQGAN():
 
       state_overlap = quantum_state_overlap(self.generator_model,real_data_inputs,generator_data_inputs)
       self.state_overlap_l += [state_overlap]
-      print(f'Step = {episode}:')
+      print(f'Step = {episode}')
       print(f'discriminator_loss={self.d_loss[-1]}')
       print(f'generator_loss={self.g_loss[-1]}')
       print(f'overlap={state_overlap}')
